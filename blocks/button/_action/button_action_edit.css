@@ -1,0 +1,19 @@
+.button_action_edit{
+  width: 24px;
+  height: 24px;
+  border: solid 1px #fff;
+}
+
+@media screen and (max-width: 768px){
+  .button_action_edit{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .button_action_edit{
+    width: 18px;
+    height: 18px;
+  }
+}

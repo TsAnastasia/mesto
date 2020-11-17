@@ -1,0 +1,17 @@
+.no-element__title{
+  margin: 0;
+  padding: 30px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px){
+  .no-element__title{
+    padding: 15px 5px;
+    font-size: 27px;
+    line-height: 33px;
+  }
+}

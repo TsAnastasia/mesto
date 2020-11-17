@@ -1,0 +1,13 @@
+.button{
+  background-color: transparent;
+  opacity: 1;
+  transform: opacity ease-in-out 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover{
+  opacity: 0.6;
+  cursor: pointer;
+}

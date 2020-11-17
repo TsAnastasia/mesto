@@ -1,0 +1,11 @@
+@media screen and (max-width: 768px){
+  .button__image_action_edit{
+    transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 768px){
+  .button__image_action_edit{
+    transform: scale(0.75);
+  }
+}

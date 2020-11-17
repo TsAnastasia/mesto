@@ -1,0 +1,29 @@
+.page__line{
+  margin: 0 calc(200 / 1280 * 100%);
+  padding: 0;
+  height: 1px;
+  background-color: #545454;
+  border: none;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 1024px){
+  .page__line{
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .page__line{
+    margin-left: calc(19 / 320 * 100%);
+    margin-right: calc(19 / 320 * 100%);
+  }
+}
+
+@media screen and (max-width: 425px){
+  .page__line{
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

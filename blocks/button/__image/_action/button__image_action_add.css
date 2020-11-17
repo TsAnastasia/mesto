@@ -1,0 +1,5 @@
+@media screen and (max-width: 768px){
+  .button__image_action_add{
+    transform: scale(calc(16/22));
+  }
+}
