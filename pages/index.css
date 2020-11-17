@@ -28,7 +28,7 @@
 
 @import url("../blocks/no-elements/no-elements.css");
 @import url("../blocks/no-elements/_hidden/no-elements_hidden.css");
-@import url("../blocks/no-elements/__title/no-element__title.css");
+@import url("../blocks/no-elements/__title/no-elements__title.css");
 
 @import url("../blocks/elements/__list/elements__list.css");
 
@@ -39,3 +39,13 @@
 @import url("../blocks/element/__title/element__title.css");
 
 @import url("../blocks/footer/__copyright/footer__copyright.css");
+
+@import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/_opened/popup_opened.css");
+
+@import url("../blocks/form/form.css");
+@import url("../blocks/form/__title/form__title.css");
+@import url("../blocks/form/__info/form__info.css");
+@import url("../blocks/form/__item/form__item.css");
+@import url("../blocks/form/__button/form__button.css");
+@import url('../blocks/form/__close-icon/form__close-icon.css');

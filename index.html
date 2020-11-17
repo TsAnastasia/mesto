@@ -38,9 +38,23 @@
       	</button>
       </div>
 
+      <div class="popup">
+        <form class="form">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <fieldset class="form__info">
+            <input class="form__item form__item_el_name" type="text" name="name" placeholder="Имя" required>
+            <input class="form__item form__item_el_about" type="text" name="about" placeholder="О себе" required>
+          </fieldset>
+          <input class="form__button" type="submit" value="Сохранить">
+          <svg class="form__close-icon" xmlns="http://www.w3.org/2000/svg" width="58" height="58" fill="none">
+            <path fill="#fff" d="M44.766 41.568l-12.79-12.79 12.79-12.79-3.197-3.198-12.79 12.79-12.79-12.79-3.199 3.198 12.79 12.79-12.79 12.79 3.198 3.198 12.79-12.79 12.79 12.79 3.198-3.198z"/>
+          </svg>
+        </form>
+      </div>
+
       <section class="elements page__section">
         <div class="no-elements no-elements_hidden">
-          <h2 class="no-element__title">! нет фотографий !</h2>
+          <h2 class="no-elements__title">! нет фотографий !</h2>
         </div>
 
         <ul class="elements__list">

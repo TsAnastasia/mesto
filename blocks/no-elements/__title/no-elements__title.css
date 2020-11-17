@@ -1,4 +1,4 @@
-.no-element__title{
+.no-elements__title{
   margin: 0;
   padding: 30px;
   font-style: normal;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 768px){
-  .no-element__title{
+  .no-elements__title{
     padding: 15px 5px;
     font-size: 27px;
     line-height: 33px;
