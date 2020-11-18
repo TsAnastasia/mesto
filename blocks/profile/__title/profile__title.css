@@ -5,11 +5,19 @@
   line-height: 48px;
   font-style: normal;
   font-weight: 500;
+  max-width: calc(100% - 40px);
 }
 
 @media screen and (max-width: 768px){
   .profile__title{
     font-size: 27px;
     line-height: 33px;
+    min-width: 200px;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .profile__title{
+    text-align: center;
   }
 }
