@@ -8,11 +8,9 @@
 </head>
 <body class="page">
   <div class="page__content">
-    <header class="header page__header page__section page__section_mobile_small">
+    <header class="header page__header page__section page__section_mobile_large">
       <img class="header__logo" src="./images/logo.svg" alt="Изображение логотипа">
     </header>
-    
-    <hr class="page__line">
 
     <main class="main">
       <div class="page__row page__section">
@@ -21,35 +19,17 @@
       	  <div class="profile__info">
       	      <div class="profile__row">
       	        <h1 class="profile__title profile__item profile__item_el_name">Жак-Ив Кусто</h1>
-      	        <button class="button button_action_edit profile__button-edit">
-      	          <svg class="button__image button__image_action_edit" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none">
-      	            <path fill="#fff" d="M10 1.328L2.604 8.767 1.283 7.419 8.66 0 10 1.328zM0 10l1.962-.588L.585 8.083 0 10z"/>
-      	          </svg>
+      	        <button class="button button_action_edit profile__button-edit" type="button">
+                  <img class="button__image button__image_action_edit" src="./images/icon-edit.svg" alt="Кнопка редактирования профиля">
       	        </button>
       	      </div>
       	    <p class="profile__subtitle profile__item profile__item_el_job">Исследователь океана</p>
       	  </div>
       	</section>
       
-      	<button class="button button_action_add">
-      	  <svg class="button__image button__image_action_add" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff">
-      	    <path d="M22 9.778h-9.778V0H9.778v9.778H0v2.444h9.778V22h2.444v-9.778H22V9.778z"/>
-      	  </svg>
+      	<button class="button button_action_add page__button-add" type="button">
+          <img class="button__image button__image_action_add" src="./images/icon-add.svg" alt="Кнопка для добавления фотографий">
       	</button>
-      </div>
-
-      <div class="popup">
-        <form class="form">
-          <h2 class="form__title">Редактировать профиль</h2>
-          <fieldset class="form__info">
-            <input class="form__item form__item_el_name" type="text" name="name" placeholder="Имя" required>
-            <input class="form__item form__item_el_job" type="text" name="job" placeholder="Профессия" required>
-          </fieldset>
-          <input class="form__button" type="submit" value="Сохранить">
-          <svg class="form__close-icon" xmlns="http://www.w3.org/2000/svg" width="58" height="58" fill="none">
-            <path fill="#fff" d="M44.766 41.568l-12.79-12.79 12.79-12.79-3.197-3.198-12.79 12.79-12.79-12.79-3.199 3.198 12.79 12.79-12.79 12.79 3.198 3.198 12.79-12.79 12.79 12.79 3.198-3.198z"/>
-          </svg>
-        </form>
       </div>
 
       <section class="elements page__section">
@@ -64,9 +44,9 @@
                 <img class="element__image" src="./images/Photo-1.jpg" alt="Фото 1">
                 <figcaption class="element__caption">
                   <h2 class="element__title">Карачаевск</h2>
-                  <svg class="element__icon-like" xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="#000">
-                    <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793zM1.356 5.482a3.97 3.97 0 011.208-2.881 4.062 4.062 0 012.881-1.208c1.039 0 2.077.403 2.882 1.208l2.034 2.013 2.034-2.034c1.59-1.59 4.195-1.59 5.763 0a4.055 4.055 0 011.208 2.881 3.97 3.97 0 01-1.208 2.881l-7.797 7.818-7.797-7.796C1.8 7.58 1.356 6.563 1.356 5.482z"/>
-                  </svg>
+                  <button class="button button_action_like element__button-like" type="button">
+                    <img class="button__image button_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
+                  </button>
                 </figcaption>
               </figure>
             </article>
@@ -77,9 +57,9 @@
                 <img class="element__image" src="./images/Photo-2.jpg" alt="Фото 2">
                 <figcaption class="element__caption">
                   <h2 class="element__title">Гора Эльбрус</h2>
-                  <svg class="element__icon-like" xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="#000">
-                    <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793zM1.356 5.482a3.97 3.97 0 011.208-2.881 4.062 4.062 0 012.881-1.208c1.039 0 2.077.403 2.882 1.208l2.034 2.013 2.034-2.034c1.59-1.59 4.195-1.59 5.763 0a4.055 4.055 0 011.208 2.881 3.97 3.97 0 01-1.208 2.881l-7.797 7.818-7.797-7.796C1.8 7.58 1.356 6.563 1.356 5.482z"/>
-                  </svg>
+                  <button class="button button_action_like element__button-like" type="button">
+                    <img class="button__image button_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
+                  </button>
                 </figcaption>
               </figure>
             </article>
@@ -90,9 +70,9 @@
                 <img class="element__image" src="./images/Photo-3.jpg" alt="Фото 3">
                 <figcaption class="element__caption">
                   <h2 class="element__title">Домбай</h2>
-                  <svg class="element__icon-like" xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="#000">
-                    <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793zM1.356 5.482a3.97 3.97 0 011.208-2.881 4.062 4.062 0 012.881-1.208c1.039 0 2.077.403 2.882 1.208l2.034 2.013 2.034-2.034c1.59-1.59 4.195-1.59 5.763 0a4.055 4.055 0 011.208 2.881 3.97 3.97 0 01-1.208 2.881l-7.797 7.818-7.797-7.796C1.8 7.58 1.356 6.563 1.356 5.482z"/>
-                  </svg>
+                  <button class="button button_action_like element__button-like" type="button">
+                    <img class="button__image button_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
+                  </button>
                 </figcaption>
               </figure>
             </article>
@@ -103,9 +83,9 @@
                 <img class="element__image" src="./images/Photo-4.jpg" alt="Фото 4">
                 <figcaption class="element__caption">
                   <h2 class="element__title">Гора Эльбрус</h2>
-                  <svg class="element__icon-like" xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="#000">
-                    <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793zM1.356 5.482a3.97 3.97 0 011.208-2.881 4.062 4.062 0 012.881-1.208c1.039 0 2.077.403 2.882 1.208l2.034 2.013 2.034-2.034c1.59-1.59 4.195-1.59 5.763 0a4.055 4.055 0 011.208 2.881 3.97 3.97 0 01-1.208 2.881l-7.797 7.818-7.797-7.796C1.8 7.58 1.356 6.563 1.356 5.482z"/>
-                  </svg>
+                  <button class="button button_action_like element__button-like" type="button">
+                    <img class="button__image button_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
+                  </button>
                 </figcaption>
               </figure>
             </article>
@@ -116,9 +96,9 @@
                 <img class="element__image" src="./images/Photo-5.jpg" alt="Фото 5">
                 <figcaption class="element__caption">
                   <h2 class="element__title">Домбай</h2>
-                  <svg class="element__icon-like" xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="#000">
-                    <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793zM1.356 5.482a3.97 3.97 0 011.208-2.881 4.062 4.062 0 012.881-1.208c1.039 0 2.077.403 2.882 1.208l2.034 2.013 2.034-2.034c1.59-1.59 4.195-1.59 5.763 0a4.055 4.055 0 011.208 2.881 3.97 3.97 0 01-1.208 2.881l-7.797 7.818-7.797-7.796C1.8 7.58 1.356 6.563 1.356 5.482z"/>
-                  </svg>
+                  <button class="button button_action_like element__button-like" type="button">
+                    <img class="button__image button_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
+                  </button>
                 </figcaption>
               </figure>
             </article>
@@ -129,9 +109,9 @@
                 <img class="element__image" src="./images/Photo-6.jpg" alt="Фото 6">
                 <figcaption class="element__caption">
                   <h2 class="element__title">Карачаево-Черкесия</h2>
-                  <svg class="element__icon-like" xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="#000">
-                    <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793zM1.356 5.482a3.97 3.97 0 011.208-2.881 4.062 4.062 0 012.881-1.208c1.039 0 2.077.403 2.882 1.208l2.034 2.013 2.034-2.034c1.59-1.59 4.195-1.59 5.763 0a4.055 4.055 0 011.208 2.881 3.97 3.97 0 01-1.208 2.881l-7.797 7.818-7.797-7.796C1.8 7.58 1.356 6.563 1.356 5.482z"/>
-                  </svg>
+                  <button class="button button_action_like element__button-like" type="button">
+                    <img class="button__image button_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
+                  </button>
                 </figcaption>
               </figure>
             </article>
@@ -140,11 +120,25 @@
       </section>
     </main>
 
+    <div class="popup">
+      <form class="form" name="edit-profile">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <fieldset class="form__info">
+          <input class="form__item form__item_el_name" type="text" name="name" placeholder="Имя" required>
+          <input class="form__item form__item_el_job" type="text" name="job" placeholder="Профессия" required>
+        </fieldset>
+        <input class="form__button-save" type="submit" value="Сохранить">
+        <button class="button form__button-close" type="button">
+          <img class="button__image" src="./images/icon-close.svg" alt="Закрыть форму">
+        </button>
+      </form>
+    </div>
+
     <footer class="footer page__section page__footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia, Анастасия Циберная</p>
     </footer>
   </div>
   
-  <script src="./pages/index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
