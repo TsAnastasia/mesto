@@ -1,23 +1,35 @@
 let page = document.querySelector('.page');
 let popup = page.querySelector('.popup');
-let editButton = page.querySelector('.button_action_edit');
+const editButton = page.querySelector('.button_action_edit');
+const addButton = page.querySelector('.button_action_add');
+const likeButton = page.querySelector('.button_action_like');
 let formElement = page.querySelector('.form');
 let nameInput = formElement.querySelector('.form__item_el_name');
 let jobInput = formElement.querySelector('.form__item_el_job');
 let nameContainer = page.querySelector('.profile__item_el_name');
 let jobContainer = page.querySelector('.profile__item_el_job');
 let closeFormIcon = page.querySelector('.form__button-close');
-let elementsContainer = page.querySelector('.elements');
+const templateCard = page.querySelector('.template-card').content;
+const cardsContainer = page.querySelector('.cards');
 
-//проверка наличия фотографий
+
+const initialCards = [
+  {name: 'Архыз', link: './images/arkhyz.jpg'},
+  {name: 'Челябинская область', link: './images/chelyabinsk-oblast.jpg'},
+  {name: 'Иваново', link: './images/ivanovo.jpg'},
+  {name: 'Камчатка', link: './images/kamchatka.jpg'},
+  {name: 'Холмогорский район', link: './images/kholmogorsky-rayon.jpg'},
+  {name: 'Байкал', link: './images/baikal.jpg' }
+];
+
 function renderAdded() {
-  let elements = elementsContainer.querySelectorAll('.element');
-  let noElements = elementsContainer.querySelector('.no-elements');
+  const cards = cardsContainer.querySelectorAll('.card');
+  const noCards = page.querySelector('.no-cards');
 
-  if (elements.length === 0) {
-    noElements.classList.remove('no-elements_hidden')
+  if (cards.length === 0) {
+    noCards.classList.remove('no-cards_hidden');
   } else {
-    noElements.classList.add('no-elements_hidden')
+    noCards.classList.add('no-cards_hidden');
   }
 }
 
@@ -40,8 +52,23 @@ function formSubmitHandler (evt) {
   popup.classList.remove('popup_opened')
 }
 
+function addCardToEnd(card){
+  const newCard = templateCard.cloneNode(true);
+  newCard.querySelector('.card__image').src = card.link;
+  newCard.querySelector('.card__image').alt = 'Фото ' + String(cardsContainer.querySelectorAll('.card').length + 1);
+  newCard.querySelector('.card__title').textContent= card.name;
+  cardsContainer.append(newCard);
+  renderAdded();
+}
+
+function addInitialCards(){
+  initialCards.forEach(item => addCardToEnd(item));
+}
+
 editButton.addEventListener('click', openPopup)
 closeFormIcon.addEventListener('click', closePopup)
 formElement.addEventListener('submit', formSubmitHandler); 
+addButton.addEventListener('click', openPopupAddCard);
 
+addInitialCards()
 renderAdded()

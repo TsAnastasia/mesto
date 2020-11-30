@@ -30,92 +30,32 @@
       	</button>
       </div>
 
-      <section class="elements page__section">
-        <div class="no-elements no-elements_hidden">
-          <h2 class="no-elements__title">! нет фотографий !</h2>
+      <section class="content page__section">
+        <div class="no-cards">
+          <h2 class="no-cards__title">! нет фотографий !</h2>
         </div>
 
-        <ul class="elements__list">
-          <li>
-            <article class="element">
-              <figure class="element__figure">
-                <img class="element__image" src="./images/Photo-1.jpg" alt="Фото 1">
-                <figcaption class="element__caption">
-                  <h2 class="element__title">Карачаевск</h2>
-                  <button class="button button_action_like element__button-like" type="button">
-                  </button>
-                </figcaption>
-              </figure>
-            </article>
-          </li>
-          <li>
-            <article class="element">
-              <figure class="element__figure">
-                <img class="element__image" src="./images/Photo-2.jpg" alt="Фото 2">
-                <figcaption class="element__caption">
-                  <h2 class="element__title">Гора Эльбрус</h2>
-                  <button class="button button_action_like element__button-like" type="button">
-                    <img class="button__image button__image_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
-                  </button>
-                </figcaption>
-              </figure>
-            </article>
-          </li>
-          <li>
-            <article class="element">
-              <figure class="element__figure">
-                <img class="element__image" src="./images/Photo-3.jpg" alt="Фото 3">
-                <figcaption class="element__caption">
-                  <h2 class="element__title">Домбай</h2>
-                  <button class="button button_action_like element__button-like" type="button">
-                    <img class="button__image button__image_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
-                  </button>
-                </figcaption>
-              </figure>
-            </article>
-          </li>
-          <li>
-            <article class="element">
-              <figure class="element__figure">
-                <img class="element__image" src="./images/Photo-4.jpg" alt="Фото 4">
-                <figcaption class="element__caption">
-                  <h2 class="element__title">Гора Эльбрус</h2>
-                  <button class="button button_action_like element__button-like" type="button">
-                    <img class="button__image button__image_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
-                  </button>
-                </figcaption>
-              </figure>
-            </article>
-          </li>
-          <li>
-            <article class="element">
-              <figure class="element__figure">
-                <img class="element__image" src="./images/Photo-5.jpg" alt="Фото 5">
-                <figcaption class="element__caption">
-                  <h2 class="element__title">Домбай</h2>
-                  <button class="button button_action_like element__button-like" type="button">
-                    <img class="button__image button__image_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
-                  </button>
-                </figcaption>
-              </figure>
-            </article>
-          </li>
-          <li>
-            <article class="element">
-              <figure class="element__figure">
-                <img class="element__image" src="./images/Photo-6.jpg" alt="Фото 6">
-                <figcaption class="element__caption">
-                  <h2 class="element__title">Карачаево-Черкесия</h2>
-                  <button class="button button_action_like element__button-like" type="button">
-                    <img class="button__image button__image_action_like" src="./images/icon-like.svg" alt="Установить или снять лайк">
-                  </button>
-                </figcaption>
-              </figure>
-            </article>
-          </li>
+        <ul class="cards">
         </ul>
       </section>
     </main>
+
+    <template class="template-card">
+      <li>
+        <article class="card">
+          <figure class="card__figure">
+            <div class="card__image-box">
+              <img class="card__image">
+            </div>
+            <figcaption class="card__caption">
+              <h2 class="card__title"></h2>
+              <button class="button button_action_like card__button-like" type="button">
+              </button>
+            </figcaption>
+          </figure>
+        </article>
+      </li>
+    </template>
 
     <div class="popup">
       <form class="form" name="edit-profile">
