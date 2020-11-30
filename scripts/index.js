@@ -1,11 +1,18 @@
-let page = document.querySelector('.page');
-let popup = page.querySelector('.popup');
-const editButton = page.querySelector('.button_action_edit');
-const addButton = page.querySelector('.button_action_add');
-const likeButton = page.querySelector('.button_action_like');
-let formElement = page.querySelector('.form');
-let nameInput = formElement.querySelector('.form__item_el_name');
-let jobInput = formElement.querySelector('.form__item_el_job');
+const page = document.querySelector('.page');
+const buttonEditProfile = page.querySelector('.button_action_edit');
+const buttonAddCard = page.querySelector('.button_action_add');
+const buttonLikeCard = page.querySelector('.button_action_like');
+const buttonsClose = page.querySelectorAll('.button_action_close');
+const submitEditProfile = page.querySelector('.submit-profile');
+const submitAddCard = page.querySelector('.submit-card');
+const popupEditProfile = page.querySelector('.popup_type_edit-profile');
+const popupAddCard = page.querySelector('.popup_type_add-card');
+const inputProfileName = popupEditProfile.querySelector('.form__item_el_name');
+const inputProfileJob = popupEditProfile.querySelector('.form__item_el_job');
+const inputAddCardName = popupAddCard.querySelector('.form__item_el_name');
+const inputAddCardUrl = popupAddCard.querySelector('.form__item_el_url');
+
+
 let nameContainer = page.querySelector('.profile__item_el_name');
 let jobContainer = page.querySelector('.profile__item_el_job');
 let closeFormIcon = page.querySelector('.form__button-close');
@@ -33,42 +40,51 @@ function renderAdded() {
   }
 }
 
-function openPopup(){
-  nameInput.value = nameContainer.innerHTML;
-  jobInput.value = jobContainer.innerHTML;
-  popup.classList.add('popup_opened');
+function openPopupEditProfile(){
+  inputProfileName.value = nameContainer.textContent;
+  inputProfileJob.value = jobContainer.textContent;
+  popupEditProfile.classList.add('popup_opened');
 }
 
-function closePopup(){
-  popup.classList.remove('popup_opened')
+function openPopupAddCard(){
+  popupAddCard.classList.add('popup_opened');
 }
 
-function formSubmitHandler (evt) {
+function closePopup(evt){
+  evt.target.closest('.popup').classList.remove('popup_opened');
+}
+
+function formSubmitProfile (evt){
   evt.preventDefault(); // отмена стандартной отправки формы
-
-  nameContainer.textContent = nameInput.value;
-  jobContainer.textContent = jobInput.value;
-
-  popup.classList.remove('popup_opened')
+  nameContainer.textContent = inputProfileName.value;
+  jobContainer.textContent = inputProfileJob.value;
+  closePopup(evt);
 }
 
-function addCardToEnd(card){
+function formSibmitCard (evt){
+  evt.preventDefault(); // отмена стандартной отправки формы
+  addCardToBegin(inputAddCardName.value, inputAddCardUrl.value);
+  closePopup(evt);
+}
+
+function addCardToBegin(name, link){
   const newCard = templateCard.cloneNode(true);
-  newCard.querySelector('.card__image').src = card.link;
+  newCard.querySelector('.card__image').src = link;
   newCard.querySelector('.card__image').alt = 'Фото ' + String(cardsContainer.querySelectorAll('.card').length + 1);
-  newCard.querySelector('.card__title').textContent= card.name;
-  cardsContainer.append(newCard);
+  newCard.querySelector('.card__title').textContent= name;
+  cardsContainer.prepend(newCard);
   renderAdded();
 }
 
 function addInitialCards(){
-  initialCards.forEach(item => addCardToEnd(item));
+  initialCards.reverse().forEach(item => addCardToBegin(item.name, item.link));
 }
 
-editButton.addEventListener('click', openPopup)
-closeFormIcon.addEventListener('click', closePopup)
-formElement.addEventListener('submit', formSubmitHandler); 
-addButton.addEventListener('click', openPopupAddCard);
+buttonEditProfile.addEventListener('click', openPopupEditProfile);
+buttonAddCard.addEventListener('click', openPopupAddCard);
+buttonsClose.forEach(button => button.addEventListener('click', closePopup));
+submitEditProfile.addEventListener('click', formSubmitProfile);
+submitAddCard.addEventListener('click', formSibmitCard);
 
-addInitialCards()
-renderAdded()
+addInitialCards();
+renderAdded();

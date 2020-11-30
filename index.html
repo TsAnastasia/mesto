@@ -31,7 +31,7 @@
       </div>
 
       <section class="content page__section">
-        <div class="no-cards">
+        <div class="no-cards no-cards_hidden">
           <h2 class="no-cards__title">! нет фотографий !</h2>
         </div>
 
@@ -57,16 +57,28 @@
       </li>
     </template>
 
-    <div class="popup">
-      <form class="form" name="edit-profile">
+    <div class="popup popup_type_edit-profile">
+      <form class="form form_type_edit-profile" name="edit-profile">
         <h2 class="form__title">Редактировать профиль</h2>
         <fieldset class="form__info">
           <input class="form__item form__item_el_name" type="text" name="name" placeholder="Имя" required>
           <input class="form__item form__item_el_job" type="text" name="job" placeholder="Профессия" required>
         </fieldset>
-        <input class="form__button-save" type="submit" value="Сохранить">
-        <button class="button form__button-close" type="button">
-          <img class="button__image" src="./images/icon-close.svg" alt="Закрыть форму">
+        <input class="form__button-save submit-profile" type="submit" value="Сохранить">
+        <button class="button button_action_close form__button-close" type="button">
+        </button>
+      </form>
+    </div>
+
+    <div class="popup popup_type_add-card">
+      <form class="form form_type_addCard" name="edit-profile">
+        <h2 class="form__title">Новое место</h2>
+        <fieldset class="form__info">
+          <input class="form__item form__item_el_name" type="text" name="name" placeholder="Название" required>
+          <input class="form__item form__item_el_url" type="text" name="url" placeholder="Путь к файлу" required>
+        </fieldset>
+        <input class="form__button-save submit-card" type="submit" value="Создать">
+        <button class="button button_action_close form__button-close" type="button">
         </button>
       </form>
     </div>

@@ -15,6 +15,7 @@
 @import url("../blocks/button/_action/button_action_edit.css");
 @import url("../blocks/button/_action/button_action_add.css");
 @import url("../blocks/button/_action/button_action_like.css");
+@import url("../blocks/button/_action/button_action_close.css");
 
 @import url("../blocks/profile/profile.css");
 @import url("../blocks/profile/__avatar/profile__avatar.css");
