@@ -1,7 +1,6 @@
 const page = document.querySelector('.page');
 const buttonEditProfile = page.querySelector('.button_action_edit');
 const buttonAddCard = page.querySelector('.button_action_add');
-const buttonLikeCard = page.querySelector('.button_action_like');
 const buttonsClose = page.querySelectorAll('.button_action_close');
 const submitEditProfile = page.querySelector('.submit-profile');
 const submitAddCard = page.querySelector('.submit-card');
@@ -69,6 +68,9 @@ function addCardToBegin(name, link){
   newCard.querySelector('.card__image').src = link;
   newCard.querySelector('.card__image').alt = 'Фото ' + String(cardsContainer.querySelectorAll('.card').length + 1);
   newCard.querySelector('.card__title').textContent= name;
+  newCard.querySelector('.button-like').addEventListener('click', function (evt){
+    evt.target.classList.toggle('button-like_active');
+  });
   cardsContainer.prepend(newCard);
   renderAdded();
 }
