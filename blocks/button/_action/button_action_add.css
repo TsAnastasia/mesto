@@ -3,6 +3,8 @@
   height: 50px;
   border: solid 2px #fff;
   border-radius: 2px;
+  background-image: url("../../../images/icon-add.svg");
+  background-size: 22px;
 }
 
 @media screen and (max-width: 768px){
@@ -14,5 +16,6 @@
 @media screen and (max-width: 425px){
   .button_action_add{
     width: 100%;
+    background-size: 16px;
   }
 }
