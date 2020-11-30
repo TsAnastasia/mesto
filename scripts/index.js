@@ -71,6 +71,10 @@ function addCardToBegin(name, link){
   newCard.querySelector('.button-like').addEventListener('click', function (evt){
     evt.target.classList.toggle('button-like_active');
   });
+  newCard.querySelector('.button_action_delete-card').addEventListener('click', function(evt){
+    evt.target.closest('.card').parentElement.remove();
+    renderAdded();
+  });
   cardsContainer.prepend(newCard);
   renderAdded();
 }
