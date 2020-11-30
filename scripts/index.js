@@ -7,15 +7,12 @@ const submitEditProfile = page.querySelector('.submit-profile');
 const submitAddCard = page.querySelector('.submit-card');
 const popupEditProfile = page.querySelector('.popup_type_edit-profile');
 const popupAddCard = page.querySelector('.popup_type_add-card');
+const nameContainer = page.querySelector('.profile__item_el_name');
+const jobContainer = page.querySelector('.profile__item_el_job');
 const inputProfileName = popupEditProfile.querySelector('.form__item_el_name');
 const inputProfileJob = popupEditProfile.querySelector('.form__item_el_job');
 const inputAddCardName = popupAddCard.querySelector('.form__item_el_name');
 const inputAddCardUrl = popupAddCard.querySelector('.form__item_el_url');
-
-
-let nameContainer = page.querySelector('.profile__item_el_name');
-let jobContainer = page.querySelector('.profile__item_el_job');
-let closeFormIcon = page.querySelector('.form__button-close');
 const templateCard = page.querySelector('.template-card').content;
 const cardsContainer = page.querySelector('.cards');
 
