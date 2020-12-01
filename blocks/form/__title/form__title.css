@@ -10,7 +10,7 @@
 
 @media screen and (max-width: 768px){
   .form__title{
-    margin-bottom: 75px;
+    margin-bottom: 30px;
     font-size: 18px;
     line-height: 20px;
   }

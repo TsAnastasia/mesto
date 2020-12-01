@@ -6,6 +6,7 @@ const submitEditProfile = page.querySelector('.submit-profile');
 const submitAddCard = page.querySelector('.submit-card');
 const popupEditProfile = page.querySelector('.popup_type_edit-profile');
 const popupAddCard = page.querySelector('.popup_type_add-card');
+const popupViewCard = page.querySelector('.popup_type_view-card');
 const nameContainer = page.querySelector('.profile__item_el_name');
 const jobContainer = page.querySelector('.profile__item_el_job');
 const inputProfileName = popupEditProfile.querySelector('.form__item_el_name');
@@ -14,7 +15,6 @@ const inputAddCardName = popupAddCard.querySelector('.form__item_el_name');
 const inputAddCardUrl = popupAddCard.querySelector('.form__item_el_url');
 const templateCard = page.querySelector('.template-card').content;
 const cardsContainer = page.querySelector('.cards');
-
 
 const initialCards = [
   {name: 'Архыз', link: './images/arkhyz.jpg'},
@@ -46,6 +46,13 @@ function openPopupAddCard(){
   popupAddCard.classList.add('popup_opened');
 }
 
+function openPopupViewCard(evt){
+  const card = evt.target.closest('.card');
+  popupViewCard.querySelector('.view-card__title').textContent = card.querySelector('.card__title').textContent;
+  popupViewCard.querySelector('.view-card__image').src = card.querySelector('.card__image').src;
+  popupViewCard.classList.add('popup_opened');
+}
+
 function closePopup(evt){
   evt.target.closest('.popup').classList.remove('popup_opened');
 }
@@ -74,7 +81,8 @@ function addCardToBegin(name, link){
   newCard.querySelector('.button_action_delete-card').addEventListener('click', function(evt){
     evt.target.closest('.card').parentElement.remove();
     renderAdded();
-  });
+  });  
+  newCard.querySelector('.card__image-darkening').addEventListener('click', openPopupViewCard);
   cardsContainer.prepend(newCard);
   renderAdded();
 }
