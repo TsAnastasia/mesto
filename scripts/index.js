@@ -75,7 +75,7 @@ function createCard(name, link){
   imageDarkening.addEventListener('click', (evt) => {
     openPopupViewCard(evt.target.closest('.card'));
   });
-  addCardToBegin(newCard);
+  return newCard;
 }
 
 function addCardToBegin(card){
@@ -92,12 +92,12 @@ function formSubmitProfile (evt){
 
 function formSibmitCard (evt){
   evt.preventDefault(); // отмена стандартной отправки формы
-  createCard(inputAddCardName.value, inputAddCardUrl.value);
+  addCardToBegin(createCard(inputAddCardName.value, inputAddCardUrl.value));
   closePopup(evt.target.closest('.popup'));
 }
 
 function addInitialCards(){
-  initialCards.reverse().forEach(item => createCard(item.name, item.link));
+  initialCards.reverse().forEach(item => addCardToBegin(createCard(item.name, item.link)));
 }
 
 buttonEditProfile.addEventListener('click', openPopupEditProfile);
