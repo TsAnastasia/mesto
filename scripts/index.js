@@ -36,64 +36,77 @@ function renderAdded() {
   }
 }
 
+function openPopup (popup){
+  popup.classList.add('popup_opened');
+}
+
 function openPopupEditProfile(){
   inputProfileName.value = nameContainer.textContent;
   inputProfileJob.value = jobContainer.textContent;
-  popupEditProfile.classList.add('popup_opened');
+  openPopup(popupEditProfile);
 }
 
-function openPopupAddCard(){
-  popupAddCard.classList.add('popup_opened');
-}
-
-function openPopupViewCard(evt){
-  const card = evt.target.closest('.card');
+function openPopupViewCard(card){
   popupViewCard.querySelector('.view-card__title').textContent = card.querySelector('.card__title').textContent;
   popupViewCard.querySelector('.view-card__image').src = card.querySelector('.card__image').src;
-  popupViewCard.classList.add('popup_opened');
+  openPopup(popupViewCard);
 }
 
-function closePopup(evt){
-  evt.target.closest('.popup').classList.remove('popup_opened');
+function closePopup(popup){
+  popup.classList.remove('popup_opened');
+}
+
+function createCard(name, link){
+  const newCard = templateCard.cloneNode(true);
+  const imageContainer = newCard.querySelector('.card__image');
+  const nameContainer = newCard.querySelector('.card__title');
+  const buttonLike = newCard.querySelector('.button-like');
+  const buttonDelete = newCard.querySelector('.button_action_delete-card');
+  const imageDarkening = newCard.querySelector('.card__image-darkening');
+  imageContainer.src = link;
+  nameContainer.textContent= name;
+  buttonLike.addEventListener('click', function (evt){
+    evt.target.classList.toggle('button-like_active');
+  });
+  buttonDelete.addEventListener('click', (evt) => {
+    evt.target.closest('.card').parentElement.remove();
+    renderAdded();
+  });
+  imageDarkening.addEventListener('click', (evt) => {
+    openPopupViewCard(evt.target.closest('.card'));
+  });
+  addCardToBegin(newCard);
+}
+
+function addCardToBegin(card){
+  cardsContainer.prepend(card);
+  renderAdded();
 }
 
 function formSubmitProfile (evt){
   evt.preventDefault(); // отмена стандартной отправки формы
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
-  closePopup(evt);
+  closePopup(evt.target.closest('.popup'));
 }
 
 function formSibmitCard (evt){
   evt.preventDefault(); // отмена стандартной отправки формы
-  addCardToBegin(inputAddCardName.value, inputAddCardUrl.value);
-  closePopup(evt);
-}
-
-function addCardToBegin(name, link){
-  const newCard = templateCard.cloneNode(true);
-  newCard.querySelector('.card__image').src = link;
-  newCard.querySelector('.card__image').alt = 'Фото ' + String(cardsContainer.querySelectorAll('.card').length + 1);
-  newCard.querySelector('.card__title').textContent= name;
-  newCard.querySelector('.button-like').addEventListener('click', function (evt){
-    evt.target.classList.toggle('button-like_active');
-  });
-  newCard.querySelector('.button_action_delete-card').addEventListener('click', function(evt){
-    evt.target.closest('.card').parentElement.remove();
-    renderAdded();
-  });  
-  newCard.querySelector('.card__image-darkening').addEventListener('click', openPopupViewCard);
-  cardsContainer.prepend(newCard);
-  renderAdded();
+  createCard(inputAddCardName.value, inputAddCardUrl.value);
+  closePopup(evt.target.closest('.popup'));
 }
 
 function addInitialCards(){
-  initialCards.reverse().forEach(item => addCardToBegin(item.name, item.link));
+  initialCards.reverse().forEach(item => createCard(item.name, item.link));
 }
 
 buttonEditProfile.addEventListener('click', openPopupEditProfile);
-buttonAddCard.addEventListener('click', openPopupAddCard);
-buttonsClose.forEach(button => button.addEventListener('click', closePopup));
+buttonAddCard.addEventListener('click',  () => {
+  openPopup(popupAddCard);
+});
+buttonsClose.forEach(button => button.addEventListener('click', (evt) => {
+  closePopup(evt.target.closest('.popup'));
+}));
 submitEditProfile.addEventListener('click', formSubmitProfile);
 submitAddCard.addEventListener('click', formSibmitCard);
 
