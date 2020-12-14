@@ -25,38 +25,34 @@ const initialCards = [
   {name: 'Байкал', link: './images/baikal.jpg' }
 ];
 
-function renderAdded() {
+const renderAdded = () => {
   const cards = cardsContainer.querySelectorAll('.card');
   const noCards = page.querySelector('.no-cards');
 
-  if (cards.length === 0) {
-    noCards.classList.remove('no-cards_hidden');
-  } else {
-    noCards.classList.add('no-cards_hidden');
-  }
+  cards.length === 0 ? noCards.classList.remove('no-cards_hidden') : noCards.classList.add('no-cards_hidden');
 }
 
-function openPopup (popup){
+const openPopup = (popup) => {
   popup.classList.add('popup_opened');
 }
 
-function openPopupEditProfile(){
+const openPopupEditProfile = () => {
   inputProfileName.value = nameContainer.textContent;
   inputProfileJob.value = jobContainer.textContent;
   openPopup(popupEditProfile);
 }
 
-function openPopupViewCard(card){
+const openPopupViewCard = (card) => {
   popupViewCard.querySelector('.view-card__title').textContent = card.querySelector('.card__title').textContent;
   popupViewCard.querySelector('.view-card__image').src = card.querySelector('.card__image').src;
   openPopup(popupViewCard);
 }
 
-function closePopup(popup){
+const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 }
 
-function createCard(name, link){
+const createCard = (name, link) => {
   const newCard = templateCard.cloneNode(true);
   const imageContainer = newCard.querySelector('.card__image');
   const nameContainer = newCard.querySelector('.card__title');
@@ -65,7 +61,7 @@ function createCard(name, link){
   const imageDarkening = newCard.querySelector('.card__image-darkening');
   imageContainer.src = link;
   nameContainer.textContent= name;
-  buttonLike.addEventListener('click', function (evt){
+  buttonLike.addEventListener('click', (evt) => {
     evt.target.classList.toggle('button-like_active');
   });
   buttonDelete.addEventListener('click', (evt) => {
@@ -78,26 +74,28 @@ function createCard(name, link){
   return newCard;
 }
 
-function addCardToBegin(card){
+const addCardToBegin = (card) => {
   cardsContainer.prepend(card);
   renderAdded();
 }
 
-function formSubmitProfile (evt){
-  evt.preventDefault(); // отмена стандартной отправки формы
+const formSubmitProfile = (evt) => {
+  evt.preventDefault();
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
   closePopup(evt.target.closest('.popup'));
 }
 
-function formSibmitCard (evt){
-  evt.preventDefault(); // отмена стандартной отправки формы
+const formSibmitCard = (evt) => {
+  evt.preventDefault();
   addCardToBegin(createCard(inputAddCardName.value, inputAddCardUrl.value));
   closePopup(evt.target.closest('.popup'));
 }
 
-function addInitialCards(){
-  initialCards.reverse().forEach(item => addCardToBegin(createCard(item.name, item.link)));
+const addInitialCards = () => {
+  initialCards.reverse().forEach((item) => { 
+    addCardToBegin(createCard(item.name, item.link));
+  });
 }
 
 buttonEditProfile.addEventListener('click', openPopupEditProfile);
