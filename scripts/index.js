@@ -15,6 +15,7 @@ const inputAddCardName = document.forms.addCard.elements.name;
 const inputAddCardUrl = document.forms.addCard.elements.url;
 const templateCard = page.querySelector('.template-card').content;
 const cardsContainer = page.querySelector('.cards');
+const popupContainers = [...page.querySelectorAll('.popup')];
 
 const initialCards = [
   {name: 'Архыз', link: './images/arkhyz.jpg'},
@@ -28,30 +29,37 @@ const initialCards = [
 const renderAdded = () => {
   const cards = cardsContainer.querySelectorAll('.card');
   const noCards = page.querySelector('.no-cards');
-
   cards.length === 0 ? noCards.classList.remove('no-cards_hidden') : noCards.classList.add('no-cards_hidden');
-}
+};
 
 const openPopup = (popup) => {
+  popup.addEventListener('keyup',  closePopupKeyupEscape);
   popup.classList.add('popup_opened');
   renderForms();
-}
+};
 
 const openPopupEditProfile = () => {
   inputProfileName.value = nameContainer.textContent;
   inputProfileJob.value = jobContainer.textContent;
   openPopup(popupEditProfile);
-}
+};
 
 const openPopupViewCard = (card) => {
   popupViewCard.querySelector('.view-card__title').textContent = card.querySelector('.card__title').textContent;
   popupViewCard.querySelector('.view-card__image').src = card.querySelector('.card__image').src;
   openPopup(popupViewCard);
-}
+};
 
 const closePopup = (popup) => {
+  popup.removeEventListener('keyup', closePopupKeyupEscape);
   popup.classList.remove('popup_opened');
-}
+};
+
+const closePopupKeyupEscape = (evt) => {
+  if (evt.key === 'Escape'){
+    closePopup(evt.target.closest('.popup'));
+  }
+};
 
 const createCard = (name, link) => {
   const newCard = templateCard.cloneNode(true);
@@ -73,19 +81,19 @@ const createCard = (name, link) => {
     openPopupViewCard(evt.target.closest('.card'));
   });
   return newCard;
-}
+};
 
 const addCardToBegin = (card) => {
   cardsContainer.prepend(card);
   renderAdded();
-}
+};
 
 const submitFormProfile = (evt) => {
   evt.preventDefault();
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
   closePopup(evt.target.closest('.popup'));
-}
+};
 
 const submitFormAddCard = (evt) => {
   evt.preventDefault();
@@ -93,13 +101,13 @@ const submitFormAddCard = (evt) => {
   inputAddCardName.value = '';
   inputAddCardUrl.value = '';
   closePopup(evt.target.closest('.popup'));
-}
+};
 
 const addInitialCards = () => {
   initialCards.reverse().forEach((item) => { 
     addCardToBegin(createCard(item.name, item.link));
   });
-}
+};
 
 buttonEditProfile.addEventListener('click', openPopupEditProfile);
 buttonAddCard.addEventListener('click',  () => {
@@ -108,6 +116,15 @@ buttonAddCard.addEventListener('click',  () => {
 buttonsClose.forEach(button => button.addEventListener('click', (evt) => {
   closePopup(evt.target.closest('.popup'));
 }));
+popupContainers.forEach(popup => {
+  popup.addEventListener('click', (evt) =>{
+    const element = evt.target;
+    if (element.classList.contains('popup')) {
+      closePopup(element);
+    };
+  });
+});
+
 submitEditProfile.addEventListener('click', submitFormProfile);
 submitAddCard.addEventListener('click', submitFormAddCard);
 
