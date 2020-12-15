@@ -60,28 +60,30 @@
     </template>
 
     <div class="popup popup_type_edit-profile">
-      <form class="form form_mobile_large" name="edit-profile">
+      <form class="form form_mobile_large" name="editProfile" novalidate>
         <h2 class="form__title form__title_form-mobile_large">Редактировать профиль</h2>
-        <fieldset class="form__info">
-          <input class="form__item form__item_el_name" type="text" name="name" placeholder="Имя" required>
-          <input class="form__item form__item_el_job" type="text" name="job" placeholder="Профессия" required>
+        <fieldset class="form__fieldset">
+          <input class="form__input" type="text" name="name" placeholder="Имя" required minlength="2" maxlength="40">
+          <p class="form__error name-error"></p>
+          <input class="form__input" type="text" name="job" placeholder="Профессия" required minlength="2" maxlength="200">
+          <p class="form__error job-error"></p>
         </fieldset>
-        <input class="form__button-save submit-profile" type="submit" value="Сохранить">
-        <button class="button button_action_close popup__button-close popup__button-close_form-mobile_large" type="button">
-        </button>
+        <button class="form__button-submit submit-profile popup__button" type="submit">Сохранить</button>
+        <button class="button button_action_close popup__button-close popup__button-close_form-mobile_large" type="button"></button>
       </form>
     </div>
 
     <div class="popup popup_type_add-card">
-      <form class="form" name="add-card">
+      <form class="form" name="addCard" novalidate>
         <h2 class="form__title">Новое место</h2>
-        <fieldset class="form__info">
-          <input class="form__item form__item_el_name form__item_form-mobile_middle" type="text" name="name" placeholder="Название" required>
-          <input class="form__item form__item_el_url form__item_form-mobile_middle" type="text" name="url" placeholder="Ссылка на картинку" required>
+        <fieldset class="form__fieldset">
+          <input class="form__input form__input_form-mobile_middle" type="text" name="name" placeholder="Название" required minlength="2" maxlength="30">
+          <p class="form__error name-error"></p>
+          <input class="form__input form__input_form-mobile_middle" type="url" name="url" placeholder="Ссылка на картинку" required>
+          <p class="form__error url-error"></p>
         </fieldset>
-        <input class="form__button-save submit-card" type="submit" value="Создать">
-        <button class="button button_action_close popup__button-close" type="button">
-        </button>
+        <button class="form__button-submit submit-card popup__button" type="submit">Создать</button>
+        <button class="button button_action_close popup__button-close" type="button"></button>
       </form>
     </div>
 
@@ -98,6 +100,7 @@
     </footer>
   </div>
   
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

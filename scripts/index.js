@@ -9,10 +9,10 @@ const popupAddCard = page.querySelector('.popup_type_add-card');
 const popupViewCard = page.querySelector('.popup_type_view-card');
 const nameContainer = page.querySelector('.profile__item_el_name');
 const jobContainer = page.querySelector('.profile__item_el_job');
-const inputProfileName = popupEditProfile.querySelector('.form__item_el_name');
-const inputProfileJob = popupEditProfile.querySelector('.form__item_el_job');
-const inputAddCardName = popupAddCard.querySelector('.form__item_el_name');
-const inputAddCardUrl = popupAddCard.querySelector('.form__item_el_url');
+const inputProfileName = document.forms.editProfile.elements.name;
+const inputProfileJob = document.forms.editProfile.elements.job;
+const inputAddCardName = document.forms.addCard.elements.name;
+const inputAddCardUrl = document.forms.addCard.elements.url;
 const templateCard = page.querySelector('.template-card').content;
 const cardsContainer = page.querySelector('.cards');
 
@@ -34,6 +34,7 @@ const renderAdded = () => {
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  renderForms();
 }
 
 const openPopupEditProfile = () => {
@@ -79,16 +80,18 @@ const addCardToBegin = (card) => {
   renderAdded();
 }
 
-const formSubmitProfile = (evt) => {
+const submitFormProfile = (evt) => {
   evt.preventDefault();
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
   closePopup(evt.target.closest('.popup'));
 }
 
-const formSibmitCard = (evt) => {
+const submitFormAddCard = (evt) => {
   evt.preventDefault();
   addCardToBegin(createCard(inputAddCardName.value, inputAddCardUrl.value));
+  inputAddCardName.value = '';
+  inputAddCardUrl.value = '';
   closePopup(evt.target.closest('.popup'));
 }
 
@@ -105,8 +108,8 @@ buttonAddCard.addEventListener('click',  () => {
 buttonsClose.forEach(button => button.addEventListener('click', (evt) => {
   closePopup(evt.target.closest('.popup'));
 }));
-submitEditProfile.addEventListener('click', formSubmitProfile);
-submitAddCard.addEventListener('click', formSibmitCard);
+submitEditProfile.addEventListener('click', submitFormProfile);
+submitAddCard.addEventListener('click', submitFormAddCard);
 
 addInitialCards();
 renderAdded();
