@@ -33,7 +33,7 @@ const renderAdded = () => {
 };
 
 const openPopup = (popup) => {
-  popup.addEventListener('keyup',  closePopupKeyupEscape);
+  page.addEventListener('keyup',  closePopupKeyupEscape);
   popup.classList.add('popup_opened');
   renderForms();
 };
@@ -44,20 +44,20 @@ const openPopupEditProfile = () => {
   openPopup(popupEditProfile);
 };
 
-const openPopupViewCard = (card) => {
-  popupViewCard.querySelector('.view-card__title').textContent = card.querySelector('.card__title').textContent;
-  popupViewCard.querySelector('.view-card__image').src = card.querySelector('.card__image').src;
+const openPopupViewCard = (name, link) => {
+  popupViewCard.querySelector('.view-card__title').textContent = name;
+  popupViewCard.querySelector('.view-card__image').src = link;
   openPopup(popupViewCard);
 };
 
 const closePopup = (popup) => {
-  popup.removeEventListener('keyup', closePopupKeyupEscape);
+  page.removeEventListener('keyup', closePopupKeyupEscape);
   popup.classList.remove('popup_opened');
 };
 
 const closePopupKeyupEscape = (evt) => {
   if (evt.key === 'Escape'){
-    closePopup(evt.target.closest('.popup'));
+    closePopup(page.querySelector('.popup_opened'));
   }
 };
 
@@ -77,8 +77,8 @@ const createCard = (name, link) => {
     evt.target.closest('.card').parentElement.remove();
     renderAdded();
   });
-  imageDarkening.addEventListener('click', (evt) => {
-    openPopupViewCard(evt.target.closest('.card'));
+  imageDarkening.addEventListener('click', () => {
+    openPopupViewCard(name, link);
   });
   return newCard;
 };
@@ -89,18 +89,16 @@ const addCardToBegin = (card) => {
 };
 
 const submitFormProfile = (evt) => {
-  evt.preventDefault();
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
-  closePopup(evt.target.closest('.popup'));
+  closePopup(popupEditProfile);
 };
 
 const submitFormAddCard = (evt) => {
-  evt.preventDefault();
   addCardToBegin(createCard(inputAddCardName.value, inputAddCardUrl.value));
   inputAddCardName.value = '';
   inputAddCardUrl.value = '';
-  closePopup(evt.target.closest('.popup'));
+  closePopup(popupAddCard);
 };
 
 const addInitialCards = () => {

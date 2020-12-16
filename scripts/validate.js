@@ -1,3 +1,11 @@
+const settingValidateForm = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button-submit',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__error_visible'
+};
+
 const showInputError = (formElement, inputElement, errorMessage, setting) => {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
   inputElement.classList.add(setting.inputErrorClass);
@@ -38,23 +46,17 @@ const enableValidation = (setting) => {
     });   
     const inputList = [...formElement.querySelectorAll(setting.inputSelector)];
     const buttonElement = formElement.querySelector(setting.submitButtonSelector);
-    toggleButtonState (inputList, buttonElement);
+    toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       checkInputValidity(formElement, inputElement, setting);
       inputElement.addEventListener('input', () =>{
         checkInputValidity(formElement, inputElement, setting);
-        toggleButtonState (inputList, buttonElement);
+        toggleButtonState(inputList, buttonElement);
       });
     });
   });
 };
 
 const renderForms = () => {
-  enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__button-submit',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__error_visible'
-  });
+  enableValidation(settingValidateForm);
 }
