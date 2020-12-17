@@ -6,6 +6,16 @@ const settingValidateForm = {
   errorClass: 'form__error_visible'
 };
 
+const clearErrorFormOnOpenPopup = (popup, setting) => {
+  const formElement = popup.querySelector(setting.formSelector);
+  const inputList = [...formElement.querySelectorAll(setting.inputSelector)];
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, setting);
+  });
+  const buttonElement = formElement.querySelector(setting.submitButtonSelector);
+  toggleButtonState (inputList, buttonElement);
+}
+
 const showInputError = (formElement, inputElement, errorMessage, setting) => {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
   inputElement.classList.add(setting.inputErrorClass);
@@ -48,7 +58,6 @@ const enableValidation = (setting) => {
     const buttonElement = formElement.querySelector(setting.submitButtonSelector);
     toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
-      checkInputValidity(formElement, inputElement, setting);
       inputElement.addEventListener('input', () =>{
         checkInputValidity(formElement, inputElement, setting);
         toggleButtonState(inputList, buttonElement);
@@ -57,6 +66,4 @@ const enableValidation = (setting) => {
   });
 };
 
-const renderForms = () => {
-  enableValidation(settingValidateForm);
-}
+enableValidation(settingValidateForm);

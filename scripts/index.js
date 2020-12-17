@@ -33,15 +33,22 @@ const renderAdded = () => {
 };
 
 const openPopup = (popup) => {
+  inputAddCardName.value = '';
+  inputAddCardUrl.value = '';
   page.addEventListener('keyup',  closePopupKeyupEscape);
   popup.classList.add('popup_opened');
-  renderForms();
 };
 
 const openPopupEditProfile = () => {
   inputProfileName.value = nameContainer.textContent;
   inputProfileJob.value = jobContainer.textContent;
+  clearErrorFormOnOpenPopup(popupEditProfile, settingValidateForm);
   openPopup(popupEditProfile);
+};
+
+const openPopupAddCard = () => {
+  clearErrorFormOnOpenPopup(popupAddCard, settingValidateForm);
+  openPopup(popupAddCard);
 };
 
 const openPopupViewCard = (name, link) => {
@@ -88,16 +95,14 @@ const addCardToBegin = (card) => {
   renderAdded();
 };
 
-const submitFormProfile = (evt) => {
+const submitFormProfile = () => {
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
   closePopup(popupEditProfile);
 };
 
-const submitFormAddCard = (evt) => {
+const submitFormAddCard = () => {
   addCardToBegin(createCard(inputAddCardName.value, inputAddCardUrl.value));
-  inputAddCardName.value = '';
-  inputAddCardUrl.value = '';
   closePopup(popupAddCard);
 };
 
@@ -108,14 +113,12 @@ const addInitialCards = () => {
 };
 
 buttonEditProfile.addEventListener('click', openPopupEditProfile);
-buttonAddCard.addEventListener('click',  () => {
-  openPopup(popupAddCard);
-});
+buttonAddCard.addEventListener('click',  openPopupAddCard);
 buttonsClose.forEach(button => button.addEventListener('click', (evt) => {
   closePopup(evt.target.closest('.popup'));
 }));
 popupContainers.forEach(popup => {
-  popup.addEventListener('click', (evt) =>{
+  popup.addEventListener('click', (evt) => {
     const element = evt.target;
     if (element.classList.contains('popup')) {
       closePopup(element);
