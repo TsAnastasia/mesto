@@ -1,21 +1,30 @@
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
 const page = document.querySelector('.page');
 const buttonEditProfile = page.querySelector('.button_action_edit');
 const buttonAddCard = page.querySelector('.button_action_add');
 const buttonsClose = page.querySelectorAll('.button_action_close');
-const submitEditProfile = page.querySelector('.submit-profile');
-const submitAddCard = page.querySelector('.submit-card');
 const popupEditProfile = page.querySelector('.popup_type_edit-profile');
 const popupAddCard = page.querySelector('.popup_type_add-card');
-const popupViewCard = page.querySelector('.popup_type_view-card');
+export const popupViewCard = page.querySelector('.popup_type_view-card');
 const nameContainer = page.querySelector('.profile__item_el_name');
 const jobContainer = page.querySelector('.profile__item_el_job');
+const formEditProfile = document.forms.editProfile;
 const inputProfileName = document.forms.editProfile.elements.name;
 const inputProfileJob = document.forms.editProfile.elements.job;
+const formAddCard = document.forms.addCard;
 const inputAddCardName = document.forms.addCard.elements.name;
 const inputAddCardUrl = document.forms.addCard.elements.url;
-const templateCard = page.querySelector('.template-card').content;
-const cardsContainer = page.querySelector('.cards');
+export const cardsContainer = page.querySelector('.cards');
 const popupContainers = [...page.querySelectorAll('.popup')];
+const formList = [...document.querySelectorAll('.form')];
+const settingValidateForm = {
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button-submit',
+  inputErrorClass: 'form__input_error',
+  errorClass: 'form__error_visible'
+};
 
 const initialCards = [
   {name: 'Архыз', link: './images/arkhyz.jpg'},
@@ -26,35 +35,35 @@ const initialCards = [
   {name: 'Байкал', link: './images/baikal.jpg' }
 ];
 
-const renderAdded = () => {
-  const cards = cardsContainer.querySelectorAll('.card');
-  const noCards = page.querySelector('.no-cards');
-  cards.length === 0 ? noCards.classList.remove('no-cards_hidden') : noCards.classList.add('no-cards_hidden');
-};
-
-const openPopup = (popup) => {
-  inputAddCardName.value = '';
-  inputAddCardUrl.value = '';
+export const openPopup = (popup) => {
   page.addEventListener('keyup',  closePopupKeyupEscape);
   popup.classList.add('popup_opened');
+};
+
+const clearErrorsFormOnOpenPopup = (formElement, isSubmit = false) =>{
+  const inputList = [...formElement.querySelectorAll(settingValidateForm.inputSelector)];
+  inputList.forEach((inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
+    inputElement.classList.remove(settingValidateForm.inputErrorClass);
+    errorElement.textContent = '';
+    errorElement.classList.remove(settingValidateForm.errorClass);
+  });
+  const buttonElement = formElement.querySelector(settingValidateForm.submitButtonSelector);
+  isSubmit ? buttonElement.removeAttribute('disabled') : buttonElement.setAttribute('disabled', true);
 };
 
 const openPopupEditProfile = () => {
   inputProfileName.value = nameContainer.textContent;
   inputProfileJob.value = jobContainer.textContent;
-  clearErrorFormOnOpenPopup(popupEditProfile, settingValidateForm);
+  clearErrorsFormOnOpenPopup(formEditProfile, true);
   openPopup(popupEditProfile);
 };
 
 const openPopupAddCard = () => {
-  clearErrorFormOnOpenPopup(popupAddCard, settingValidateForm);
+  inputAddCardName.value = '';
+  inputAddCardUrl.value = '';
+  clearErrorsFormOnOpenPopup(formAddCard);
   openPopup(popupAddCard);
-};
-
-const openPopupViewCard = (name, link) => {
-  popupViewCard.querySelector('.view-card__title').textContent = name;
-  popupViewCard.querySelector('.view-card__image').src = link;
-  openPopup(popupViewCard);
 };
 
 const closePopup = (popup) => {
@@ -68,47 +77,24 @@ const closePopupKeyupEscape = (evt) => {
   }
 };
 
-const createCard = (name, link) => {
-  const newCard = templateCard.cloneNode(true);
-  const imageContainer = newCard.querySelector('.card__image');
-  const nameContainer = newCard.querySelector('.card__title');
-  const buttonLike = newCard.querySelector('.button-like');
-  const buttonDelete = newCard.querySelector('.button_action_delete-card');
-  const imageDarkening = newCard.querySelector('.card__image-darkening');
-  imageContainer.src = link;
-  nameContainer.textContent= name;
-  buttonLike.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('button-like_active');
-  });
-  buttonDelete.addEventListener('click', (evt) => {
-    evt.target.closest('.card').parentElement.remove();
-    renderAdded();
-  });
-  imageDarkening.addEventListener('click', () => {
-    openPopupViewCard(name, link);
-  });
-  return newCard;
-};
-
-const addCardToBegin = (card) => {
-  cardsContainer.prepend(card);
-  renderAdded();
-};
-
-const submitFormProfile = () => {
+const submitFormProfile = (evt) => {
+  evt.preventDefault();
   nameContainer.textContent = inputProfileName.value;
   jobContainer.textContent = inputProfileJob.value;
   closePopup(popupEditProfile);
 };
 
-const submitFormAddCard = () => {
-  addCardToBegin(createCard(inputAddCardName.value, inputAddCardUrl.value));
+const submitFormAddCard = (evt) => {
+  evt.preventDefault();
+  const imageCard = new Card({name: inputAddCardName.value, link: inputAddCardUrl.value}, '.template-card');
+  cardsContainer.prepend( imageCard.generateCard() );
   closePopup(popupAddCard);
 };
 
 const addInitialCards = () => {
   initialCards.reverse().forEach((item) => { 
-    addCardToBegin(createCard(item.name, item.link));
+    const imageCard = new Card(item, '.template-card');
+    cardsContainer.prepend( imageCard.generateCard() );
   });
 };
 
@@ -125,9 +111,12 @@ popupContainers.forEach(popup => {
     };
   });
 });
+formEditProfile.addEventListener('submit', submitFormProfile);
+formAddCard.addEventListener('submit', submitFormAddCard);
 
-submitEditProfile.addEventListener('click', submitFormProfile);
-submitAddCard.addEventListener('click', submitFormAddCard);
+formList.forEach((item) => {
+  const formValidator = new FormValidator(settingValidateForm, item);
+  formValidator.enableValidation();
+});
 
 addInitialCards();
-renderAdded();
