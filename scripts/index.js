@@ -1,31 +1,6 @@
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 
-const page = document.querySelector('.page');
-const buttonEditProfile = page.querySelector('.button_action_edit');
-const buttonAddCard = page.querySelector('.button_action_add');
-const buttonsClose = page.querySelectorAll('.button_action_close');
-const popupEditProfile = page.querySelector('.popup_type_edit-profile');
-const popupAddCard = page.querySelector('.popup_type_add-card');
-export const popupViewCard = page.querySelector('.popup_type_view-card');
-const nameContainer = page.querySelector('.profile__item_el_name');
-const jobContainer = page.querySelector('.profile__item_el_job');
-const formEditProfile = document.forms.editProfile;
-const inputProfileName = document.forms.editProfile.elements.name;
-const inputProfileJob = document.forms.editProfile.elements.job;
-const formAddCard = document.forms.addCard;
-const inputAddCardName = document.forms.addCard.elements.name;
-const inputAddCardUrl = document.forms.addCard.elements.url;
-export const cardsContainer = page.querySelector('.cards');
-const popupContainers = [...page.querySelectorAll('.popup')];
-const formList = [...document.querySelectorAll('.form')];
-const settingValidateForm = {
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button-submit',
-  inputErrorClass: 'form__input_error',
-  errorClass: 'form__error_visible'
-};
-
 const initialCards = [
   {name: 'Архыз', link: './images/arkhyz.jpg'},
   {name: 'Челябинская область', link: './images/chelyabinsk-oblast.jpg'},
@@ -35,35 +10,65 @@ const initialCards = [
   {name: 'Байкал', link: './images/baikal.jpg' }
 ];
 
-export const openPopup = (popup) => {
+const page = document.querySelector('.page');
+const buttonEditProfile = page.querySelector('.button_action_edit');
+const buttonAddCard = page.querySelector('.button_action_add');
+const buttonsClose = page.querySelectorAll('.button_action_close');
+const cardsContainer = page.querySelector('.cards');
+const jobContainer = page.querySelector('.profile__item_el_job');
+const nameContainer = page.querySelector('.profile__item_el_name');
+const formAddCard = document.forms.addCard;
+const inputAddCardName = formAddCard.elements.name;
+const inputAddCardUrl = formAddCard.elements.url;
+const formEditProfile = document.forms.editProfile;
+const inputProfileJob = formEditProfile.elements.job;
+const inputProfileName = formEditProfile.elements.name;
+const formsList = [...document.querySelectorAll('.form')];
+const popupAddCard = page.querySelector('.popup_type_add-card');
+const popupEditProfile = page.querySelector('.popup_type_edit-profile');
+const popupViewCard = page.querySelector('.popup_type_view-card');
+const popupsContainers = [...page.querySelectorAll('.popup')];
+const viewCardImage = popupViewCard.querySelector('.view-card__image');
+const viewCardTitle = popupViewCard.querySelector('.view-card__title');
+
+const settingValidateForm = {
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button-submit',
+  inputErrorClass: 'form__input_error',
+  errorClass: 'form__error_visible'
+};
+
+const addCardValidator = new FormValidator(settingValidateForm, formAddCard);
+const profileValidator = new FormValidator(settingValidateForm, formEditProfile);
+
+const addInitialCards = () => {
+  initialCards.reverse().forEach((item) => { 
+    cardsContainer.prepend( createCard(item) );
+  });
+};
+
+const createCard = (data) => {
+  const imageCard = new Card(data, '.template-card', handleCardClick, cardsContainer);
+  return imageCard.generateCard();
+};
+
+const openPopup = (popup) => {
   page.addEventListener('keyup',  closePopupKeyupEscape);
   popup.classList.add('popup_opened');
-};
-
-const clearErrorsFormOnOpenPopup = (formElement, isSubmit = false) =>{
-  const inputList = [...formElement.querySelectorAll(settingValidateForm.inputSelector)];
-  inputList.forEach((inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
-    inputElement.classList.remove(settingValidateForm.inputErrorClass);
-    errorElement.textContent = '';
-    errorElement.classList.remove(settingValidateForm.errorClass);
-  });
-  const buttonElement = formElement.querySelector(settingValidateForm.submitButtonSelector);
-  isSubmit ? buttonElement.removeAttribute('disabled') : buttonElement.setAttribute('disabled', true);
-};
-
-const openPopupEditProfile = () => {
-  inputProfileName.value = nameContainer.textContent;
-  inputProfileJob.value = jobContainer.textContent;
-  clearErrorsFormOnOpenPopup(formEditProfile, true);
-  openPopup(popupEditProfile);
 };
 
 const openPopupAddCard = () => {
   inputAddCardName.value = '';
   inputAddCardUrl.value = '';
-  clearErrorsFormOnOpenPopup(formAddCard);
+  addCardValidator.resetValidation();
   openPopup(popupAddCard);
+};
+
+const openPopupEditProfile = () => {
+  inputProfileName.value = nameContainer.textContent;
+  inputProfileJob.value = jobContainer.textContent;
+  profileValidator.resetValidation();
+  openPopup(popupEditProfile);
 };
 
 const closePopup = (popup) => {
@@ -77,6 +82,18 @@ const closePopupKeyupEscape = (evt) => {
   }
 };
 
+const handleCardClick = (name,link) => {
+  viewCardTitle.textContent = name;
+  viewCardImage.src = link;
+  openPopup(popupViewCard);
+};
+
+const submitFormAddCard = (evt) => {
+  evt.preventDefault();
+  cardsContainer.prepend( createCard({name: inputAddCardName.value, link: inputAddCardUrl.value}) );
+  closePopup(popupAddCard);
+};
+
 const submitFormProfile = (evt) => {
   evt.preventDefault();
   nameContainer.textContent = inputProfileName.value;
@@ -84,26 +101,14 @@ const submitFormProfile = (evt) => {
   closePopup(popupEditProfile);
 };
 
-const submitFormAddCard = (evt) => {
-  evt.preventDefault();
-  const imageCard = new Card({name: inputAddCardName.value, link: inputAddCardUrl.value}, '.template-card');
-  cardsContainer.prepend( imageCard.generateCard() );
-  closePopup(popupAddCard);
-};
-
-const addInitialCards = () => {
-  initialCards.reverse().forEach((item) => { 
-    const imageCard = new Card(item, '.template-card');
-    cardsContainer.prepend( imageCard.generateCard() );
-  });
-};
-
-buttonEditProfile.addEventListener('click', openPopupEditProfile);
 buttonAddCard.addEventListener('click',  openPopupAddCard);
+buttonEditProfile.addEventListener('click', openPopupEditProfile);
 buttonsClose.forEach(button => button.addEventListener('click', (evt) => {
   closePopup(evt.target.closest('.popup'));
 }));
-popupContainers.forEach(popup => {
+formAddCard.addEventListener('submit', submitFormAddCard);
+formEditProfile.addEventListener('submit', submitFormProfile);
+popupsContainers.forEach(popup => {
   popup.addEventListener('click', (evt) => {
     const element = evt.target;
     if (element.classList.contains('popup')) {
@@ -111,12 +116,8 @@ popupContainers.forEach(popup => {
     };
   });
 });
-formEditProfile.addEventListener('submit', submitFormProfile);
-formAddCard.addEventListener('submit', submitFormAddCard);
 
-formList.forEach((item) => {
-  const formValidator = new FormValidator(settingValidateForm, item);
-  formValidator.enableValidation();
-});
+addCardValidator.enableValidation();
+profileValidator.enableValidation();
 
 addInitialCards();
