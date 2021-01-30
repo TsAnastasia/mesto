@@ -17,10 +17,8 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 
-//const cardsContainer = page.querySelector('.cards');
-
 const createCard = (data) => {
-  const imageCard = new Card(data, '.template-card', handleCardClick/*, cardsContainer*/);
+  const imageCard = new Card(data, '.template-card', handleCardClick, updateCardList);
   return imageCard.generateCard();
 };
 
@@ -59,6 +57,10 @@ const submitFormProfile = (evt) => {
   popupEditProfile.close();
 };
 
+const updateCardList = () => {
+  defaultCardList.update();
+}
+
 const userInfo = new UserInfo({ 
   nameSelector: '.profile__item_el_name', 
   jobSelector: '.profile__item_el_job'
@@ -74,7 +76,7 @@ const profileValidator = new FormValidator(settingValidateForm, formEditProfile)
 const defaultCardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '.template-card', handleCardClick/*, cardsContainer*/);
+    const card = new Card(item, '.template-card', handleCardClick, updateCardList);
     defaultCardList.addItem( card.generateCard() );
   }
 }, '.cards');

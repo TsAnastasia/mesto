@@ -13,6 +13,12 @@ export default class Section {
     this._container.innerHTML = '';
   };
 
+  update() {
+    if (!this._container.children.length) {
+      this.clear();
+    };
+  }
+
   renderItems() {
     this.clear();
 
