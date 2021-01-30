@@ -1,16 +1,17 @@
-export class Card {
-  constructor(data, cardSelector, handleCardClick, cardsContainer) {
-    this._cardsContainer = cardsContainer;
+export default class Card {
+  constructor({ name, link }, cardSelector, handleCardClick/*, cardsContainer*/) {
+    //this._cardsContainer = cardsContainer;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._imageLink = data.link;
-    this._title = data.name;
+    this._imageLink = link;
+    this._title = name;
   };
   
   _deleteCard(evt) {
     evt.stopPropagation();
     evt.target.closest('.card').parentElement.remove();
-    this._renderCards();
+    this.cardsContainer();
+    //this._renderCards();
   };
 
   _getTemplate() {
@@ -18,11 +19,11 @@ export class Card {
     return cardElement;
   };
   
-  _renderCards() {
+  /* _renderCards() {
     if (!this._cardsContainer.children.length) {
       this._cardsContainer.textContent = '';
     };
-  }
+  } */
 
   _setEventListeners() {
     this._element.querySelector('.button-like').addEventListener('click', (evt) => {
