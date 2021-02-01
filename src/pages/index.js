@@ -5,8 +5,6 @@ import {
   buttonAddCard,
   buttonEditProfile,
   formAddCard,
-  inputAddCardName,
-  inputAddCardLink,
   formEditProfile,
   inputProfileJob,
   inputProfileName,
