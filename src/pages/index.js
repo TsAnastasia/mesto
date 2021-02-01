@@ -20,7 +20,7 @@ import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 
 const createCard = (data) => {
-  const imageCard = new Card(data, '.template-card', handleCardClick, updateCardList);
+  const imageCard = new Card(data, '.template-card', handleCardClick);
   return imageCard.generateCard();
 };
 
@@ -41,27 +41,15 @@ const handleCardClick = (name,link) => {
   popupWithImage.open( {name, link} );
 };
 
-const submitFormAddCard = (evt) => {
-  evt.preventDefault();
-  defaultCardList.addItem( createCard({
-    name: inputAddCardName.value, 
-    link: inputAddCardLink.value
-  }));
+const submitFormAddCard = ({ name, link }) => {
+  defaultCardList.addItem( createCard({ name, link }));
   popupAddCard.close();
 };
 
-const submitFormProfile = (evt) => {
-  evt.preventDefault();
-  userInfo.setUserInfo({
-    name: inputProfileName.value, 
-    job: inputProfileJob.value
-  });
+const submitFormProfile = ({ name, job}) => {
+  userInfo.setUserInfo({ name, job });
   popupEditProfile.close();
 };
-
-const updateCardList = () => {
-  defaultCardList.update();
-}
 
 const userInfo = new UserInfo({ 
   nameSelector: '.profile__item_el_name', 
@@ -78,8 +66,7 @@ const profileValidator = new FormValidator(settingValidateForm, formEditProfile)
 const defaultCardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '.template-card', handleCardClick, updateCardList);
-    defaultCardList.addItem( card.generateCard() );
+    defaultCardList.addItem( createCard(item) );
   }
 }, '.cards');
 
