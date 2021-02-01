@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Места России</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="page__content">
     <header class="header page__header page__section page__section_mobile_large">
-      <img class="header__logo" src="./images/logo.svg" alt="Изображение логотипа">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Изображение логотипа">
     </header>
 
     <main class="main">
       <div class="page__row page__section">
       	<section class="profile page__profile">
-      	  <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+      	  <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
       	  <div class="profile__info">
       	      <div class="profile__row">
       	        <h1 class="profile__title profile__item profile__item_el_name">Жак-Ив Кусто</h1>
@@ -92,6 +91,5 @@
     </footer>
   </div>
   
-  <script src="./pages/index.js" type="module"></script>
 </body>
 </html>

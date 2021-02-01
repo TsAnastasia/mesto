@@ -33,7 +33,7 @@ export default class FormValidator {
     errorElement.classList.add(this._errorClass);
   };
 
-  _toggleButtonState = () => {
+  _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._buttonElement.setAttribute('disabled', true);
     }else{

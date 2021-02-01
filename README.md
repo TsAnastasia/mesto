@@ -7,6 +7,9 @@
 * [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
 * [Ссылка проекта на GitHub Pages](https://tsanastasia.github.io/mesto)
 
+## Сборка проекта
+Сборка webpack (npm run build) в папку dist.
+
 ## Используемые технологии
 * Grid и Flex контейнеры для взаимного размещения объектов.
 * Иконки для кнопок вставлены в код страницы html с помощью тега svg.

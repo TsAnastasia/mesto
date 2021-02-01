@@ -1,10 +1,17 @@
+import image001 from '../images/arkhyz.jpg';
+import image002 from '../images/chelyabinsk-oblast.jpg';
+import image003 from '../images/ivanovo.jpg';
+import image004 from '../images/kamchatka.jpg';
+import image005 from '../images/kholmogorsky-rayon.jpg';
+import image006 from '../images/baikal.jpg';
+
 export const initialCards = [
-  {name: 'Архыз', link: './images/arkhyz.jpg'},
-  {name: 'Челябинская область', link: './images/chelyabinsk-oblast.jpg'},
-  {name: 'Иваново', link: './images/ivanovo.jpg'},
-  {name: 'Камчатка', link: './images/kamchatka.jpg'},
-  {name: 'Холмогорский район', link: './images/kholmogorsky-rayon.jpg'},
-  {name: 'Байкал', link: './images/baikal.jpg' }
+  {name: 'Архыз', link: image001},
+  {name: 'Челябинская область', link: image002},
+  {name: 'Иваново', link: image003},
+  {name: 'Камчатка', link: image004},
+  {name: 'Холмогорский район', link: image005},
+  {name: 'Байкал', link: image006}
 ];
 
 const page = document.querySelector('.page');
