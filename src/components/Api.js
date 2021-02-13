@@ -4,8 +4,22 @@ export default class Api {
     this._headers = headers;
   };
 
+  _deleteData(url) {
+    return fetch(url, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then( (res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка ${res.status}`);
+      }
+    });
+  }
+
   _getData(url) {
-    return  fetch(url, {
+    return fetch(url, {
       method: 'GET',
       headers: this._headers
     })
@@ -46,6 +60,10 @@ export default class Api {
         return Promise.reject(`Ошибка ${res.status}`);
       }
     });
+  }
+
+  deleteCard(cardId){
+    return this._deleteData(`${this._baseUrl}/cards/${cardId}`);
   }
 
   getInitialCards() {

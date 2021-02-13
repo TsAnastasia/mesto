@@ -56,6 +56,7 @@
 @import url("../blocks/form/__input/form__input.css");
 @import url("../blocks/form/__input/_form-mobile/form__input_form-mobile_middle.css");
 @import url("../blocks/form/__input/_error/form__input_error.css");
+@import url("../blocks/form/__input/_hide/form__input_hide.css");
 @import url("../blocks/form/__error/form__error.css");
 @import url("../blocks/form/__error/_visible/form__error_visible.css");
 @import url("../blocks/form/__button-submit/form__button-submit.css");

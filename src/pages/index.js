@@ -7,7 +7,8 @@ import {
   formEditProfile,
   inputProfileJob,
   inputProfileName,
-  settingValidateForm
+  settingValidateForm,
+  inputCardId
 } from '../utils/constants.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
@@ -17,9 +18,9 @@ import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
-const createCard = (data) => {
+const createCard = (data, isMine) => {
   const imageCard = new Card(data, '.template-card', handleCardClick, handleDeleteCard);
-  return imageCard.generateCard();
+  return imageCard.generateCard(isMine);
 };
 
 const openPopupAddCard = () => {
@@ -39,15 +40,15 @@ const handleCardClick = (name,link) => {
   popupWithImage.open( {name, link} );
 };
 
-const handleDeleteCard = () => {
-  console.log('delete');
+const handleDeleteCard = (cardId) => {
+  inputCardId.value = cardId;
   popupDeleteCard.open();
 }
 
 const submitFormAddCard = ({ name, link }) => {
   api.postCard({name, link})
     .then((data) => {
-      defaultCardList.addItem( createCard({ name: data.name, link: data.link , likes: data.likes}));
+      defaultCardList.addItem( createCard({ name: data.name, link: data.link, likes: data.likes}, true));
       popupAddCard.close();
     })
     .catch( (err) => {
@@ -66,8 +67,16 @@ const submitFormProfile = ({ name, job}) => {
     });
 };
 
-const submitDeleteCard = () => {
-  popupDeleteCard.close()
+const submitDeleteCard = ({cardId}) => {
+  api.deleteCard(cardId)
+    .then( (data) => {
+      console.log(data);
+      document.querySelector(`#id${cardId}`).remove();
+      popupDeleteCard.close();
+    })
+    .catch( (err) => {
+      console.log(err);
+    });
 }
 
 const userInfo = new UserInfo({ 
@@ -109,8 +118,11 @@ popupDeleteCard.setEventListeners();
 addCardValidator.enableValidation();
 profileValidator.enableValidation();
 
+let mineId = '';
+
 api.getUserInfo()
   .then((data) => {
+    mineId = data._id;
     userInfo.setUserInfo({
       name: data.name,
       job: data.about
@@ -124,15 +136,8 @@ api.getUserInfo()
 api.getInitialCards()
   .then((data) => {
     defaultCardList.clear();
-    data.reverse().forEach((item) => {     
-      //console.log(item) //!!!
-      defaultCardList.addItem( 
-        createCard({ 
-          name: item.name,
-          link: item.link,
-          likes: item.likes 
-        })
-      );
+    data.reverse().forEach((item) => {    
+      defaultCardList.addItem( createCard(item, item.owner._id === mineId ) );
     });
   })
   .catch( (err) => {
