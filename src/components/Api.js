@@ -64,6 +64,10 @@ export default class Api {
     return this._patchData(`${this._baseUrl}/users/me`, { name: name, about: job });
   }
 
+  changeAvatar(link) {
+    return this._patchData(`${this._baseUrl}/users/me/avatar`, {avatar: link});
+  }
+
   deleteCard(cardId) {
     return this._deleteData(`${this._baseUrl}/cards/${cardId}`);
   }

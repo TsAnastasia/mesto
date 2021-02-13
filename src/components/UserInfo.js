@@ -5,6 +5,11 @@ export default class UserInfo {
     this._avatarContainer = document.querySelector(avatarSelector);
   }
 
+  getAvatar() {
+    const url = this._avatarContainer.style.backgroundImage;
+    return url.slice(5, url.length - 2);
+  }
+
   getUserInfo() {
     return { 
       name: this._nameContainer.textContent, 
@@ -12,12 +17,12 @@ export default class UserInfo {
     };
   };
 
+  setAvatar(imageLink) {
+    this._avatarContainer.style.backgroundImage = `url("${imageLink}")`;
+  };
+
   setUserInfo({name, job}) {
     this._nameContainer.textContent = name;
     this._jobContainer.textContent = job;
   };
-
-  setAvatar(imageLink) {
-    this._avatarContainer.src = imageLink;
-  }
 }

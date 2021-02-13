@@ -3,10 +3,13 @@ import './index.css';
 import {
   buttonAddCard,
   buttonEditProfile,
+  buttonEditAvatar,
   formAddCard,
   formEditProfile,
+  formEditAvatar,
   inputProfileJob,
   inputProfileName,
+  inputAvatarLink,
   settingValidateForm,
   inputCardId
 } from '../utils/constants.js';
@@ -46,6 +49,12 @@ const openPopupAddCard = () => {
   popupAddCard.open();
 };
 
+const openPopupEditAvatar = () => {
+  inputAvatarLink.value = userInfo.getAvatar();
+  avatarValidator.resetValidation();
+  popupEditAvatar.open();
+}
+
 const openPopupEditProfile = () => {
   const data = userInfo.getUserInfo();
   inputProfileName.value = data.name;
@@ -64,6 +73,17 @@ const submitFormAddCard = ({ name, link }) => {
       console.log(err);
     });
 };
+
+const submitFormEditAvatar = ({link}) =>{
+  api.changeAvatar(link)
+    .then( (data) =>{
+      userInfo.setAvatar(data.avatar);
+      popupEditAvatar.close();
+    })
+    .catch( (err) => {
+      console.log(err);
+    });
+}
 
 const submitFormProfile = ({ name, job}) => {
   api.changeUserInfo({name, job})
@@ -104,10 +124,12 @@ const api = new Api({
 const popupWithImage = new PopupWithImage('.popup_type_view-card');
 const popupAddCard = new PopupWithForm('.popup_type_add-card', submitFormAddCard);
 const popupEditProfile = new PopupWithForm('.popup_type_edit-profile', submitFormProfile);
+const popupEditAvatar = new PopupWithForm('.popup_type_edit-avatar', submitFormEditAvatar)
 const popupDeleteCard = new PopupWithForm('.popup_type_delete-card', submitDeleteCard)
 
 const addCardValidator = new FormValidator(settingValidateForm, formAddCard);
 const profileValidator = new FormValidator(settingValidateForm, formEditProfile);
+const avatarValidator = new FormValidator(settingValidateForm, formEditAvatar); 
 
 const defaultCardList = new Section({
   renderer: (item) => {
@@ -117,14 +139,17 @@ const defaultCardList = new Section({
 
 buttonAddCard.addEventListener('click',  openPopupAddCard);
 buttonEditProfile.addEventListener('click', openPopupEditProfile);
+buttonEditAvatar.addEventListener('click', openPopupEditAvatar);
 
 popupWithImage.setEventListeners();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
+popupEditAvatar.setEventListeners();
 popupDeleteCard.setEventListeners();
 
 addCardValidator.enableValidation();
 profileValidator.enableValidation();
+addCardValidator.enableValidation();
 
 let mineId = '';
 

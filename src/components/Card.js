@@ -34,7 +34,6 @@ export default class Card {
   _toggleLike() {
     this._changeLike(this._isLike, this._id)
       .then( (data) => {
-        console.log(data);
         this._isLike = !this._isLike;
         this._likeCount = data.likes.length;
         this._updateLike();

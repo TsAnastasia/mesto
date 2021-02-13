@@ -14,7 +14,7 @@
     <main class="main">
       <div class="page__row page__section">
       	<section class="profile page__profile">
-      	  <img class="profile__avatar" src="<%=require('./images/avatar.svg')%>" alt="Аватар">
+      	  <button class="profile__avatar" type="button"></button>
       	  <div class="profile__info">
       	      <div class="profile__row">
       	        <h1 class="profile__title profile__item profile__item_el_name">Имя</h1>
@@ -62,6 +62,16 @@
           <input class="form__input" type="text" name="job" placeholder="Профессия" required minlength="2" maxlength="200" autocomplete="off">
           <p class="form__error job-error"></p>
         </fieldset>
+        <button class="form__button-submit submit-profile popup__button" type="submit">Сохранить</button>
+        <button class="button button_action_close popup__button-close popup__button-close_form-mobile_large" type="button"></button>
+      </form>
+    </div>
+
+    <div class="popup popup_type_edit-avatar">
+      <form class="form form_mobile_large" name="editAvatar" novalidate>
+        <h2 class="form__title">Обновить аватар</h2>
+        <input class="form__input" type="url" name="link" placeholder="Ссылка на картинку" required autocomplete="off">
+        <p class="form__error link-error"></p>
         <button class="form__button-submit submit-profile popup__button" type="submit">Сохранить</button>
         <button class="button button_action_close popup__button-close popup__button-close_form-mobile_large" type="button"></button>
       </form>
