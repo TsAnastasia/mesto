@@ -64,7 +64,7 @@ const openPopupEditProfile = () => {
 };
 
 const submitFormAddCard = ({ name, link }) => {
-  popupAddCard.renderLoading(true);
+  popupAddCard.renderLoading(true, 'Добавление...');
   api.addCard({name, link})
     .then((data) => {
       defaultCardList.addItem( createCard(data, true));
@@ -79,7 +79,7 @@ const submitFormAddCard = ({ name, link }) => {
 };
 
 const submitFormEditAvatar = ({link}) => {
-  popupEditAvatar.renderLoading(true);
+  popupEditAvatar.renderLoading(true, 'Загрузка...');
   api.changeAvatar(link)
     .then( (data) =>{
       userInfo.setAvatar(data.avatar);
@@ -94,7 +94,7 @@ const submitFormEditAvatar = ({link}) => {
 }
 
 const submitFormProfile = ({ name, job}) => {
-  popupEditProfile.renderLoading(true);
+  popupEditProfile.renderLoading(true, 'Сохранение...');
   api.changeUserInfo({name, job})
     .then( (data) => {
       userInfo.setUserInfo({ name: data.name, job: data.about });
@@ -109,6 +109,7 @@ const submitFormProfile = ({ name, job}) => {
 };
 
 const submitDeleteCard = ({cardId}) => {
+  popupDeleteCard.renderLoading(true, 'Удаление...');
   api.deleteCard(cardId)
     .then( (data) => {
       document.querySelector(`#id${cardId}`).remove();
@@ -116,6 +117,9 @@ const submitDeleteCard = ({cardId}) => {
     })
     .catch( (err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupDeleteCard.renderLoading(false);
     });
 }
 
