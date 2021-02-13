@@ -12,7 +12,6 @@ export default class Popup {
 
   _handleClosePopup(evt) {
     const elementClasses = evt.target.classList;
-    console.log(elementClasses);
     if (elementClasses.contains('popup') || elementClasses.contains('popup__button-close')) {
       this.close();
     };

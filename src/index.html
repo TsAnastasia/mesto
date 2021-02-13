@@ -14,13 +14,13 @@
     <main class="main">
       <div class="page__row page__section">
       	<section class="profile page__profile">
-      	  <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+      	  <img class="profile__avatar" src="<%=require('./images/avatar.svg')%>" alt="Аватар">
       	  <div class="profile__info">
       	      <div class="profile__row">
-      	        <h1 class="profile__title profile__item profile__item_el_name">Жак-Ив Кусто</h1>
+      	        <h1 class="profile__title profile__item profile__item_el_name">Имя</h1>
       	        <button class="button button_action_edit profile__button-edit" type="button"></button>
       	      </div>
-      	    <p class="profile__subtitle profile__item profile__item_el_job">Исследователь океана</p>
+      	    <p class="profile__subtitle profile__item profile__item_el_job">О себе</p>
       	  </div>
       	</section>
       
@@ -42,7 +42,10 @@
             </div>
             <figcaption class="card__caption">
               <h2 class="card__title"></h2>
-              <button class="button button-like" type="button"></button>
+              <div class="card__like">
+                <button class="button button-like" type="button"></button>
+                <p class="card__like-count"></p>
+              </div>
             </figcaption>
           </figure>
           <button class="button button_action_delete-card" type="button"></button>
@@ -75,6 +78,14 @@
         </fieldset>
         <button class="form__button-submit submit-card popup__button" type="submit">Создать</button>
         <button class="button button_action_close popup__button-close" type="button"></button>
+      </form>
+    </div>
+
+    <div class="popup popup_type_delete-card">
+      <form class="form form_mobile_large" name="editProfile" novalidate>
+        <h2 class="form__title">Вы уверены?</h2>
+        <button class="form__button-submit submit-profile popup__button" type="submit">Да</button>
+        <button class="button button_action_close popup__button-close popup__button-close_form-mobile_large" type="button"></button>
       </form>
     </div>
 
