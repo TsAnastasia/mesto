@@ -18,10 +18,28 @@ import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
+const changeCardLike = (isLike, cardId) => {
+  if (isLike) {
+    return api.deleteCardLike(cardId);
+  } else{
+    return api.addCardLike(cardId);
+  }
+}
+
 const createCard = (data, isMine) => {
-  const imageCard = new Card(data, '.template-card', handleCardClick, handleDeleteCard);
-  return imageCard.generateCard(isMine);
+  const isLike = data.likes.some( (item) => { return item._id === mineId });
+  const imageCard = new Card(data, isMine, isLike, '.template-card', handleCardClick, handleDeleteCard, changeCardLike);
+  return imageCard.generateCard();
 };
+
+const handleCardClick = (name,link) => {
+  popupWithImage.open( {name, link} );
+};
+
+const handleDeleteCard = (cardId) => {
+  inputCardId.value = cardId;
+  popupDeleteCard.open();
+}
 
 const openPopupAddCard = () => {
   addCardValidator.resetValidation();
@@ -36,19 +54,10 @@ const openPopupEditProfile = () => {
   popupEditProfile.open();
 };
 
-const handleCardClick = (name,link) => {
-  popupWithImage.open( {name, link} );
-};
-
-const handleDeleteCard = (cardId) => {
-  inputCardId.value = cardId;
-  popupDeleteCard.open();
-}
-
 const submitFormAddCard = ({ name, link }) => {
-  api.postCard({name, link})
+  api.addCard({name, link})
     .then((data) => {
-      defaultCardList.addItem( createCard({ name: data.name, link: data.link, likes: data.likes}, true));
+      defaultCardList.addItem( createCard(data, true));
       popupAddCard.close();
     })
     .catch( (err) => {
@@ -57,7 +66,7 @@ const submitFormAddCard = ({ name, link }) => {
 };
 
 const submitFormProfile = ({ name, job}) => {
-  api.patchUserInfo({name, job})
+  api.changeUserInfo({name, job})
     .then( (data) => {
       userInfo.setUserInfo({ name: data.name, job: data.about });
       popupEditProfile.close();
@@ -70,7 +79,6 @@ const submitFormProfile = ({ name, job}) => {
 const submitDeleteCard = ({cardId}) => {
   api.deleteCard(cardId)
     .then( (data) => {
-      console.log(data);
       document.querySelector(`#id${cardId}`).remove();
       popupDeleteCard.close();
     })
@@ -136,8 +144,9 @@ api.getUserInfo()
 api.getInitialCards()
   .then((data) => {
     defaultCardList.clear();
-    data.reverse().forEach((item) => {    
-      defaultCardList.addItem( createCard(item, item.owner._id === mineId ) );
+    data.reverse().forEach((item) => {
+      //console.log(item);    
+      defaultCardList.addItem( createCard(item, item.owner._id === mineId) );
     });
   })
   .catch( (err) => {

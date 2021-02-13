@@ -1,12 +1,15 @@
 export default class Card {
-  constructor({ name, link, likes, _id}, cardSelector, handleCardClick, handleDeleteCard) {
+  constructor({ _id, name, link, likes}, isMine, isLike, cardSelector, handleCardClick, handleDeleteCard, changeLike) {
     this._title = name;
     this._imageLink = link;
-    this._likes = likes;
     this._id = _id;
+    this._likeCount = likes.length;
+    this._isLike = isLike;
+    this._isMine = isMine;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._changeLike = changeLike;
   };
   
   _deleteCard() {
@@ -19,20 +22,38 @@ export default class Card {
   };
 
   _setEventListeners() {
-    this._element.querySelector('.button-like').addEventListener('click', (evt) => {
-      this._toggleLike(evt);
+    this._likeContainer.addEventListener('click', (evt) => {
+      evt.stopPropagation();
+      this._toggleLike();
     });
     this._element.querySelector('.card__figure').addEventListener('click', () => {
       this._handleCardClick(this._title, this._imageLink);
     });
   };
 
-  _toggleLike(evt) {
-    evt.stopPropagation();
-    evt.target.classList.toggle('button-like_active');
+  _toggleLike() {
+    this._changeLike(this._isLike, this._id)
+      .then( (data) => {
+        console.log(data);
+        this._isLike = !this._isLike;
+        this._likeCount = data.likes.length;
+        this._updateLike();
+      })
+      .catch( (err) => {
+        console.log(err);
+      });
   };
 
-  generateCard(isMine) {
+  _updateLike() {
+    this._likesContainer.textContent = this._likeCount;
+    if (this._isLike){
+      this._likeContainer.classList.add('button-like_active');
+    } else {
+      this._likeContainer.classList.remove('button-like_active');
+    }
+  }
+
+  generateCard() {
     this._element = this._getTemplate();
 
     this._element.id = `id${this._id}`;
@@ -42,11 +63,14 @@ export default class Card {
     this._cardImage.alt = this._title;
 
     this._element.querySelector('.card__title').textContent = this._title;
-    this._element.querySelector('.card__like-count').textContent = this._likes.length;
+
+    this._likeContainer = this._element.querySelector('.button-like');
+    this._likesContainer = this._element.querySelector('.card__like-count');
+    this._updateLike();
 
     this._deleteButton = this._element.querySelector('.button_action_delete-card');
     
-    if (isMine) {
+    if (this._isMine) {
       this._deleteButton.addEventListener('click', () => {
         this._deleteCard();
       });
