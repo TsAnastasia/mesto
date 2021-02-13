@@ -169,26 +169,21 @@ addCardValidator.enableValidation();
 
 let mineId = '';
 
-api.getUserInfo()
-  .then((data) => {
-    mineId = data._id;
-    userInfo.setUserInfo({
-      name: data.name,
-      job: data.about
-    });
-    userInfo.setAvatar(data.avatar);
-  })
-  .catch( (err) => {
-    console.log(err);
-  });
 
-api.getInitialCards()
-  .then((data) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then((values) => {
+    mineId = values[0]._id;
+    userInfo.setUserInfo({
+      name: values[0].name,
+      job: values[0].about
+    });
+    userInfo.setAvatar(values[0].avatar);
+
     defaultCardList.clear();
-    data.reverse().forEach((item) => {
+    values[1].reverse().forEach((item) => {
       defaultCardList.addItem( createCard(item, item.owner._id === mineId) );
     });
   })
   .catch( (err) => {
     console.log(err);
-  })
+  });
