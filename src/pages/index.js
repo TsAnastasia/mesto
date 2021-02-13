@@ -64,6 +64,7 @@ const openPopupEditProfile = () => {
 };
 
 const submitFormAddCard = ({ name, link }) => {
+  popupAddCard.renderLoading(true);
   api.addCard({name, link})
     .then((data) => {
       defaultCardList.addItem( createCard(data, true));
@@ -71,10 +72,14 @@ const submitFormAddCard = ({ name, link }) => {
     })
     .catch( (err) => {
       console.log(err);
-    });
+    })
+    .finally( () => {
+      popupAddCard.renderLoading(false);
+    })
 };
 
-const submitFormEditAvatar = ({link}) =>{
+const submitFormEditAvatar = ({link}) => {
+  popupEditAvatar.renderLoading(true);
   api.changeAvatar(link)
     .then( (data) =>{
       userInfo.setAvatar(data.avatar);
@@ -82,10 +87,14 @@ const submitFormEditAvatar = ({link}) =>{
     })
     .catch( (err) => {
       console.log(err);
-    });
+    })
+    .finally( () => {
+      popupEditAvatar.renderLoading(false);
+    })
 }
 
 const submitFormProfile = ({ name, job}) => {
+  popupEditProfile.renderLoading(true);
   api.changeUserInfo({name, job})
     .then( (data) => {
       userInfo.setUserInfo({ name: data.name, job: data.about });
@@ -93,7 +102,10 @@ const submitFormProfile = ({ name, job}) => {
     })
     .catch( (err) => {
       console.log(err);
-    });
+    })
+    .finally( () => {
+      popupEditProfile.renderLoading(false);
+    })
 };
 
 const submitDeleteCard = ({cardId}) => {
@@ -170,7 +182,6 @@ api.getInitialCards()
   .then((data) => {
     defaultCardList.clear();
     data.reverse().forEach((item) => {
-      //console.log(item);    
       defaultCardList.addItem( createCard(item, item.owner._id === mineId) );
     });
   })
